@@ -17,12 +17,12 @@ public class EmployeeDTO {
     private String lastName;
 
     @Email(message = "Invalid email")
-    private String emailId;
+    private String email;
 
-    public EmployeeDTO(String firstName, String lastName, String emailId) {
+    public EmployeeDTO(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.emailId = emailId;
+        this.email = email;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class EmployeeDTO {
         return "EmployeeDTO{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", emailId='" + emailId + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 
@@ -53,11 +53,11 @@ public class EmployeeDTO {
         this.lastName = lastName;
     }
 
-    public String getEmailId() {
-        return emailId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

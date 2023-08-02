@@ -1,5 +1,6 @@
 package com.example.spirngbackend.models;
 
+import com.example.spirngbackend.security.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -26,25 +27,32 @@ public class Employee {
     @NotBlank(message = "Last Name should be not empty")
     private String lastName;
 
-    @Column(name = "email_id")
+    @Column(name = "email")
     @Email(message = "Invalid email")
-    private String emailId;
-
-    @Column(name = "username")
-    @NotNull(message = "Username should be not null")
-    @NotBlank(message = "Username should be not empty")
-    private String username;
+    private String email;
 
     @Column(name = "password")
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    public Employee(int id, String firstName, String lastName, String emailId, String username) {
+
+    public Employee(int id, String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.emailId = emailId;
-        this.username = username;
+        this.email = email;
+    }
+
+
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public int getId() {
@@ -71,20 +79,12 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public String getEmailId() {
-        return emailId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -101,8 +101,7 @@ public class Employee {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", emailId='" + emailId + '\'' +
-                ", username='" + username + '\'' +
+                ", emailId='" + email + '\'' +'\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
@@ -110,9 +109,9 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, String emailId) {
+    public Employee(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.emailId = emailId;
+        this.email = email;
     }
 }
