@@ -1,0 +1,15 @@
+spring:
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        password: 498654
+        url: jdbc:postgresql://localhost:5432/react_app_db
+        username: postgres
+    jpa:
+        hibernate:
+            ddl-auto: create-drop
+        show_sql: true
+        properties:
+            hibernate:
+                format_sql : true
+        database: postgresql
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
