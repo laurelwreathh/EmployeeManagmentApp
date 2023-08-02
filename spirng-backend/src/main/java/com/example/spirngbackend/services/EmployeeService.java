@@ -14,8 +14,8 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class EmployeeService {
 
-    private EmployeeRepository repository;
-    private EmployeeMapper mapper;
+    private final EmployeeRepository repository;
+    private final EmployeeMapper mapper;
 
     public EmployeeService(EmployeeRepository repository, EmployeeMapper mapper) {
         this.repository = repository;

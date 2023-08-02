@@ -47,15 +47,6 @@ public class Employee {
         this.username = username;
     }
 
-    public Employee(int id, String firstName, String lastName, String emailId, String username, String password) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.emailId = emailId;
-        this.username = username;
-        this.password = password;
-    }
-
     public int getId() {
         return id;
     }
@@ -88,6 +79,22 @@ public class Employee {
         this.emailId = emailId;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -95,6 +102,8 @@ public class Employee {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", emailId='" + emailId + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 

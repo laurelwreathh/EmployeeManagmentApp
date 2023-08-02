@@ -18,7 +18,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 public class EmployeeController {
 
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
 
     public EmployeeController(EmployeeService employeeService) {
