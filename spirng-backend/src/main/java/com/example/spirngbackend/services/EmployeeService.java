@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -28,6 +29,10 @@ public class EmployeeService {
 
     public Employee findOneById(int id) throws EmployeeNotFoundException {
         return repository.findById(id).orElseThrow(() -> new EmployeeNotFoundException("Employee with ID:" + id + " not found"));
+    }
+
+    public Optional<Employee> findOneByEmail(String email){
+        return repository.findByEmail(email);
     }
 
     @Transactional

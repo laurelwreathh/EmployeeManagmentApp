@@ -1,6 +1,6 @@
 package com.example.spirngbackend.models;
 
-import com.example.spirngbackend.security.Role;
+import com.example.spirngbackend.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -36,6 +36,8 @@ public class Employee {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    //TODO: разобраться с конструкторами, а то ниче не понятно ваще
 
 
     public Employee(int id, String firstName, String lastName, String email) {
