@@ -40,6 +40,15 @@ public class Employee {
     //TODO: разобраться с конструкторами, а то ниче не понятно ваще
 
 
+    public Employee(int id, String firstName, String lastName, String email, String password, Role role) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
     public Employee(int id, String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
@@ -47,7 +56,13 @@ public class Employee {
         this.email = email;
     }
 
-
+    public Employee(String firstName, String lastName, String email, String password, Role role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 
     public Role getRole() {
         return role;
