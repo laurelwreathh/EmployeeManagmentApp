@@ -1,3 +1,10 @@
+application:
+    security:
+        jwt:
+            expiration: 86400000
+            refresh-token:
+                expiration: 604800000
+            secret: 6f184c4a664db6bad79bc405e5221ac834ae7260f88bea272162ad8df1c8f881
 spring:
     datasource:
         driver-class-name: org.postgresql.Driver
@@ -5,11 +12,11 @@ spring:
         url: jdbc:postgresql://localhost:5432/react_app_db
         username: postgres
     jpa:
-        hibernate:
-            ddl-auto: create-drop
-        show_sql: true
-        properties:
-            hibernate:
-                format_sql : true
         database: postgresql
         database-platform: org.hibernate.dialect.PostgreSQLDialect
+        hibernate:
+            ddl-auto: create-drop
+        properties:
+            hibernate:
+                format_sql: true
+        show_sql: true
