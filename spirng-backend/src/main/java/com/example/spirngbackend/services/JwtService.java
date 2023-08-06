@@ -20,10 +20,10 @@ public class JwtService {
 
     @Value("${application.security.jwt.secret}")
     private String secret;
-    @Value("${application.security.jwt.expiration")
-    private String jwtExpiration;
-    @Value("${application.security.jwt.refresh-token.expiration")
-    private String refreshExpiration;
+    @Value("${application.security.jwt.expiration}")
+    private long jwtExpiration;
+    @Value("${application.security.jwt.refresh-token.expiration}")
+    private long refreshExpiration;
 
 
     public String extractUsername(String token) {
@@ -57,7 +57,7 @@ public class JwtService {
             Map<String, Object> extraClaims,
             UserDetails userDetails
     ){
-        return buildToken(extraClaims, userDetails, Long.parseLong(jwtExpiration));
+        return buildToken(extraClaims, userDetails, jwtExpiration);
     }
 
     public String generateToken(UserDetails userDetails) {
@@ -65,7 +65,7 @@ public class JwtService {
     }
 
     public String generateRefreshToken(UserDetails userDetails){
-        return buildToken(new HashMap<>(), userDetails, Long.parseLong(refreshExpiration));
+        return buildToken(new HashMap<>(), userDetails, refreshExpiration);
     }
 
     private String buildToken(Map<String, Object> extraClaims, UserDetails userDetails, long expiration) {
