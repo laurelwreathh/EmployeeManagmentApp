@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const EMPLOYEE_API_AUTH_URL = "http://localhost:8080/api/v1/auth";
+const EMPLOYEE_API_AUTH_URL = "http://localhost:8080/api/v1/token";
 
 
 class AuthenticationService{
@@ -22,3 +22,5 @@ class AuthenticationService{
         });
     }
 }
+
+export default new AuthenticationService()
