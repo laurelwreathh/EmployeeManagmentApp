@@ -1,11 +1,10 @@
 package com.example.spirngbackend.services;
 
+import com.example.spirngbackend.dtos.EmployeeDTO;
+import com.example.spirngbackend.dtos.JwtRequest;
 import com.example.spirngbackend.enums.Role;
 import com.example.spirngbackend.models.Employee;
-import com.example.spirngbackend.security.AuthenticationRequest;
-import com.example.spirngbackend.security.AuthenticationResponse;
 import com.example.spirngbackend.security.EmployeeDetails;
-import com.example.spirngbackend.security.RegisterRequest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,41 +13,42 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationService {
 
-    private final EmployeeService employeeService;
+    private final AuthenticationManager authenticationManager;
 
-    private final PasswordEncoder passwordEncoder;
+    private final EmployeeService employeeService;
 
     private final JwtService jwtService;
 
-    private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder encoder;
 
-    public AuthenticationService(EmployeeService employeeService, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager) {
-        this.employeeService = employeeService;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
+    public AuthenticationService(AuthenticationManager authenticationManager, EmployeeService employeeService, JwtService jwtService, PasswordEncoder encoder) {
         this.authenticationManager = authenticationManager;
+        this.employeeService = employeeService;
+        this.jwtService = jwtService;
+        this.encoder = encoder;
     }
 
-    public AuthenticationResponse register(RegisterRequest request) {
+
+    public String authenticate(JwtRequest jwtRequest) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                jwtRequest.getEmail(),
+                jwtRequest.getPassword()
+        ));
+        return jwtService.generateToken(
+                new EmployeeDetails(employeeService.findOneByEmail(jwtRequest.getEmail()).orElseThrow()));
+    }
+
+    public String register(JwtRequest jwtRequest){
         Employee employee = new Employee(
-                request.getFirstName(),
-                request.getLastName(),
-                request.getEmail(),
-                passwordEncoder.encode(request.getPassword()),
+                jwtRequest.getFirstName(),
+                jwtRequest.getLastName(),
+                jwtRequest.getEmail(),
+                encoder.encode(jwtRequest.getPassword()),
                 Role.EMPLOYEE
         );
 
         employeeService.save(employee);
 
-        return new AuthenticationResponse(jwtService.generateToken(new EmployeeDetails(employee)));
-    }
-
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                request.getEmail(),
-                request.getPassword()
-        ));
-        return new AuthenticationResponse(jwtService.generateToken(
-                new EmployeeDetails(employeeService.findOneByEmail(request.getEmail()).orElseThrow())));
+        return jwtService.generateToken(new EmployeeDetails(employee));
     }
 }
