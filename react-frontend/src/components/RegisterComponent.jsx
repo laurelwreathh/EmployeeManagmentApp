@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import EmployeeService from '../services/EmployeeService';
 import AuthenticationService from '../services/AuthenticationService';
 
 
@@ -12,9 +11,8 @@ class RegisterComponent extends Component {
             id: this.props.match.params.id,
             firstName: '',
             lastName: '',
-            emailId: '',
-            password: '',
-            role: 'EMPLOYEE'
+            email: '',
+            password: ''
         }
         this.changeFirstNameHandler = this.changeFirstNameHandler.bind(this);
         this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
@@ -34,7 +32,7 @@ class RegisterComponent extends Component {
         let jwtRequest = {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
-            emailId: this.state.emailId,
+            email: this.state.email,
             password: this.state.password
         };
         console.log('employee => ' + JSON.stringify(jwtRequest));
@@ -54,7 +52,7 @@ class RegisterComponent extends Component {
     }
 
     changeEmailHandler = (event) => {
-        this.setState({emailId: event.target.value});
+        this.setState({email: event.target.value});
     }
     changePasswordHandler = (event) => {
         this.setState({password: event.target.value});
@@ -96,8 +94,8 @@ class RegisterComponent extends Component {
                                     </div>
                                     <div className="form-group">
                                         <label> Email Id: </label>
-                                        <input placeholder="Email" name="emailId" className="form-control"
-                                               value={this.state.emailId} onChange={this.changeEmailHandler}/>
+                                        <input placeholder="Email" name="email" className="form-control"
+                                               value={this.state.email} onChange={this.changeEmailHandler}/>
                                     </div>
 
                                     <div className="form-group">

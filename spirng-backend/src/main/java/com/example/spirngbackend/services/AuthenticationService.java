@@ -2,6 +2,7 @@ package com.example.spirngbackend.services;
 
 import com.example.spirngbackend.dtos.EmployeeDTO;
 import com.example.spirngbackend.dtos.JwtRequest;
+import com.example.spirngbackend.dtos.JwtResponse;
 import com.example.spirngbackend.enums.Role;
 import com.example.spirngbackend.models.Employee;
 import com.example.spirngbackend.security.EmployeeDetails;
@@ -29,16 +30,20 @@ public class AuthenticationService {
     }
 
 
-    public String authenticate(JwtRequest jwtRequest) {
+    public JwtResponse authenticate(JwtRequest jwtRequest) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 jwtRequest.getEmail(),
                 jwtRequest.getPassword()
         ));
-        return jwtService.generateToken(
-                new EmployeeDetails(employeeService.findOneByEmail(jwtRequest.getEmail()).orElseThrow()));
+
+        //TODO: нужно сделать email уникальным, иначе аутентификация работать не будет,
+        // так как будет находить много почт и запутается
+
+        return new JwtResponse(jwtService.generateToken(
+                new EmployeeDetails(employeeService.findOneByEmail(jwtRequest.getEmail()).orElseThrow())));
     }
 
-    public String register(JwtRequest jwtRequest){
+    public JwtResponse register(JwtRequest jwtRequest){
         Employee employee = new Employee(
                 jwtRequest.getFirstName(),
                 jwtRequest.getLastName(),
@@ -49,6 +54,6 @@ public class AuthenticationService {
 
         employeeService.save(employee);
 
-        return jwtService.generateToken(new EmployeeDetails(employee));
+        return new JwtResponse(jwtService.generateToken(new EmployeeDetails(employee)));
     }
 }

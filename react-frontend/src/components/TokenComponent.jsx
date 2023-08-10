@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import EmployeeService from '../services/EmployeeService'
 
 class TokenComponent extends Component {
     constructor(props) {
@@ -12,7 +11,7 @@ class TokenComponent extends Component {
 
         this.register = this.register.bind(this);
         this.authenticate = this.authenticate.bind(this);
-    }
+}
 
     componentDidMount() {
 

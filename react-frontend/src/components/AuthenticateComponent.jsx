@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import EmployeeService from '../services/EmployeeService';
 import AuthenticationService from '../services/AuthenticationService';
 
 
@@ -10,7 +9,7 @@ class AuthenticateComponent extends Component {
         this.state = {
             // step 2
             id: this.props.match.params.id,
-            emailId: '',
+            email: '',
             password: '',
 
         }
@@ -27,7 +26,7 @@ class AuthenticateComponent extends Component {
     authenticate = (e) => {
         e.preventDefault();
         //dto
-        let jwtRequest = {emailId: this.state.emailId, password: this.state.password};
+        let jwtRequest = {email: this.state.email, password: this.state.password};
         console.log('employee => ' + JSON.stringify(jwtRequest));
 
             AuthenticationService.authenticate(jwtRequest).then(res => {
@@ -36,7 +35,7 @@ class AuthenticateComponent extends Component {
     }
 
     changeEmailHandler = (event) => {
-        this.setState({emailId: event.target.value});
+        this.setState({email: event.target.value});
     }
     changePasswordHandler = (event) => {
         this.setState({password: event.target.value});
@@ -68,8 +67,8 @@ class AuthenticateComponent extends Component {
                                 <form>
                                     <div className="form-group">
                                         <label> Email Id: </label>
-                                        <input placeholder="Email" name="emailId" className="form-control"
-                                               value={this.state.emailId} onChange={this.changeEmailHandler}/>
+                                        <input placeholder="Email" name="email" className="form-control"
+                                               value={this.state.email} onChange={this.changeEmailHandler}/>
                                     </div>
 
                                     <div className="form-group">

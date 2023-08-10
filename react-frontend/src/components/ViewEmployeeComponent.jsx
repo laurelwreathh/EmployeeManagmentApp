@@ -33,8 +33,8 @@ class ViewEmployeeComponent extends Component {
                             <div> { this.state.employee.lastName }</div>
                         </div>
                         <div className = "row">
-                            <label> Employee Email ID: </label>
-                            <div> { this.state.employee.emailId }</div>
+                            <label> Employee Email: </label>
+                            <div> { this.state.employee.email }</div>
                         </div>
                     </div>
 
