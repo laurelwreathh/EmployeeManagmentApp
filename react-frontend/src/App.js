@@ -9,6 +9,9 @@ import CreateEmployeeComponent from './components/CreateEmployeeComponent';
 import UpdateEmployeeComponent from './components/UpdateEmployeeComponent';
 import ViewEmployeeComponent from './components/ViewEmployeeComponent';
 import employeeService from "./services/EmployeeService";
+import TokenComponent from "./components/TokenComponent";
+import RegisterComponent from "./components/RegisterComponent";
+import AuthenticateComponent from "./components/AuthenticateComponent";
 
 function App() {
   return (
@@ -16,8 +19,11 @@ function App() {
         <Router>
               <HeaderComponent />
                 <div className="container">
-                    <Switch> 
-                          <Route path = "/" exact component = {ListEmployeeComponent}></Route>
+                    <Switch>
+                        <Route path = "/" exact component={TokenComponent}></Route>
+                        <Route path = "/register" exact component={RegisterComponent}></Route>
+                        <Route path = "/authenticate" exact component={AuthenticateComponent}></Route>
+                          {/*<Route path = "/" exact component = {ListEmployeeComponent}></Route>*/}
                           <Route path = "/employees" component = {ListEmployeeComponent}></Route>
                           <Route path = "/add-employee/:id" component = {CreateEmployeeComponent}></Route>
                           <Route path = "/view-employee/:id" component = {ViewEmployeeComponent}></Route>

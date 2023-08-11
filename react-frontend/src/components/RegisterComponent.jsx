@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
-import EmployeeService from '../services/EmployeeService';
+import AuthenticationService from '../services/AuthenticationService';
 
-class CreateEmployeeComponent extends Component {
+
+class RegisterComponent extends Component {
     constructor(props) {
         super(props)
 
@@ -11,55 +12,39 @@ class CreateEmployeeComponent extends Component {
             firstName: '',
             lastName: '',
             email: '',
-            password: '',
-            role: 'EMPLOYEE'
+            password: ''
         }
         this.changeFirstNameHandler = this.changeFirstNameHandler.bind(this);
         this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
         this.changePasswordHandler = this.changePasswordHandler.bind(this);
-        this.saveOrUpdateEmployee = this.saveOrUpdateEmployee.bind(this);
+        this.register = this.register.bind(this);
     }
 
     // step 3
     componentDidMount() {
-
-        // step 4
-        if (this.state.id === '_add') {
-            return
-        } else {
-            EmployeeService.getEmployeeById(this.state.id).then((res) => {
-                let employee = res.data;
-                this.setState({
-                    firstName: employee.firstName,
-                    lastName: employee.lastName,
-                    email: employee.email,
-                    role: employee.role
-                });
-            });
-        }
+        return;
     }
 
-    saveOrUpdateEmployee = (e) => {
+    register = (e) => {
         e.preventDefault();
         //dto
-        let employee = {firstName: this.state.firstName, lastName: this.state.lastName, email: this.state.email, password: this.state.password};
-        console.log('employee => ' + JSON.stringify(employee));
+        let jwtRequest = {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            password: this.state.password
+        };
+        console.log('employee => ' + JSON.stringify(jwtRequest));
 
         // step 5
-        if (this.state.id === '_add') {
-            EmployeeService.createEmployee(employee).then(res => {
-                this.props.history.push('/employees');
-            });
-        } else {
-            EmployeeService.updateEmployee(employee, this.state.id).then(res => {
-                this.props.history.push('/employees');
-            });
-        }
+        AuthenticationService.register(jwtRequest).then(res => {
+            this.props.history.push('/');
+        });
     }
 
     changeFirstNameHandler = (event) => {
-        this.setState(  {firstName: event.target.value});
+        this.setState({firstName: event.target.value});
     }
 
     changeLastNameHandler = (event) => {
@@ -67,21 +52,21 @@ class CreateEmployeeComponent extends Component {
     }
 
     changeEmailHandler = (event) => {
-        this.setState({emailId: event.target.value});
+        this.setState({email: event.target.value});
     }
     changePasswordHandler = (event) => {
         this.setState({password: event.target.value});
     }
 
     cancel() {
-        this.props.history.push('/employees');
+        this.props.history.push('/');
     }
 
     getTitle() {
-        if (this.state.id === '_add') {
-            return <h3 className="text-center">Add Employee</h3>
+        if (this.state.id === 'register') {
+            return <h3 className="text-center">Register</h3>
         } else {
-            return <h3 className="text-center">Update Employee</h3>
+            return <h3 className="text-center">Register</h3>
         }
     }
 
@@ -114,12 +99,12 @@ class CreateEmployeeComponent extends Component {
                                     </div>
 
                                     <div className="form-group">
-                                        <label> Password  : </label>
+                                        <label> Password : </label>
                                         <input placeholder="Password" name="password" className="form-control"
                                                value={this.state.password} onChange={this.changePasswordHandler}/>
                                     </div>
 
-                                    <button className="btn btn-success" onClick={this.saveOrUpdateEmployee}>Save
+                                    <button className="btn btn-success" onClick={this.register}>Save
                                     </button>
                                     <button className="btn btn-danger" onClick={this.cancel.bind(this)}
                                             style={{marginLeft: "10px"}}>Cancel
@@ -135,4 +120,4 @@ class CreateEmployeeComponent extends Component {
     }
 }
 
-export default CreateEmployeeComponent
+export default RegisterComponent

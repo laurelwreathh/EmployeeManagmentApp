@@ -52,6 +52,21 @@ public class JwtRequest {
         this.password = password;
     }
 
+    public JwtRequest(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public JwtRequest() {
+    }
+
+    @Override
+    public String toString() {
+        return "JwtRequest{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
