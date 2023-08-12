@@ -28,10 +28,9 @@ class AuthenticateComponent extends Component {
         //dto
         let jwtRequest = {email: this.state.email, password: this.state.password};
         console.log('employee => ' + JSON.stringify(jwtRequest));
-
-            AuthenticationService.authenticate(jwtRequest).then(res => {
-                this.props.history.push('/');
-            });
+        AuthenticationService.authenticate(jwtRequest).then(res => {
+            this.props.history.push('/');
+        });
     }
 
     changeEmailHandler = (event) => {

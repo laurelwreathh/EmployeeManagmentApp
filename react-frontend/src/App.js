@@ -14,27 +14,27 @@ import RegisterComponent from "./components/RegisterComponent";
 import AuthenticateComponent from "./components/AuthenticateComponent";
 
 function App() {
-  return (
-    <div>
-        <Router>
-              <HeaderComponent />
+    return (
+        <div>
+            <Router>
+                <HeaderComponent/>
                 <div className="container">
                     <Switch>
-                        <Route path = "/" exact component={TokenComponent}></Route>
-                        <Route path = "/register" exact component={RegisterComponent}></Route>
-                        <Route path = "/authenticate" exact component={AuthenticateComponent}></Route>
-                          {/*<Route path = "/" exact component = {ListEmployeeComponent}></Route>*/}
-                          <Route path = "/employees" component = {ListEmployeeComponent}></Route>
-                          <Route path = "/add-employee/:id" component = {CreateEmployeeComponent}></Route>
-                          <Route path = "/view-employee/:id" component = {ViewEmployeeComponent}></Route>
-                          {/* <Route path = "/update-employee/:id" component = {UpdateEmployeeComponent}></Route> */}
+                        <Route path="/" exact component={TokenComponent}></Route>
+                        <Route path="/register" exact component={RegisterComponent}></Route>
+                        <Route path="/authenticate" exact component={AuthenticateComponent}></Route>
+                        {/*<Route path = "/" exact component = {ListEmployeeComponent}></Route>*/}
+                        <Route path="/employees" component={ListEmployeeComponent}></Route>
+                        <Route path="/add-employee/_add" component={CreateEmployeeComponent}></Route>
+                        <Route path="/view-employee/:id" component={ViewEmployeeComponent}></Route>
+                         <Route path = "/add-employee/:id" component = {UpdateEmployeeComponent}></Route>
                     </Switch>
                 </div>
-              <FooterComponent />
-        </Router>
-    </div>
-    
-  );
+                <FooterComponent/>
+            </Router>
+        </div>
+
+    );
 }
 
 export default App;
