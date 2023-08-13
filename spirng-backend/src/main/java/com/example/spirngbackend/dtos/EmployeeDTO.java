@@ -22,7 +22,9 @@ public class EmployeeDTO {
     @Email(message = "Invalid email")
     private String email;
 
-
+    @NotNull(message = "Password should be not null")
+    @NotBlank(message = "Password should be not empty")
+    @Size(min = 8, message = "Password is too short")
     private String password;
 
     @Enumerated(EnumType.STRING)

@@ -36,8 +36,6 @@ public class AuthenticationService {
                 jwtRequest.getPassword()
         ));
 
-        //TODO: нужно сделать email уникальным, иначе аутентификация работать не будет,
-        // так как будет находить много почт и запутается
 
         return new JwtResponse(jwtService.generateToken(
                 new EmployeeDetails(employeeService.findOneByEmail(jwtRequest.getEmail()).orElseThrow())));
