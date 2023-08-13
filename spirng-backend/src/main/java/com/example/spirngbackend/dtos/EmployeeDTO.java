@@ -22,6 +22,10 @@ public class EmployeeDTO {
     @Email(message = "Invalid email")
     private String email;
 
+    @NotNull(message = "Password should be not null")
+    @NotBlank(message = "Password should be not empty")
+    @Size(min = 8, message = "Password is too short")
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -33,6 +37,29 @@ public class EmployeeDTO {
         this.role = role;
     }
 
+    public EmployeeDTO(String firstName, String lastName, String email, String password, Role role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     @Override
     public String toString() {

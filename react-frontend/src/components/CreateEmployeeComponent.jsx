@@ -23,43 +23,28 @@ class CreateEmployeeComponent extends Component {
 
     // step 3
     componentDidMount() {
-
-        // step 4
-        if (this.state.id === '_add') {
-            return
-        } else {
-            EmployeeService.getEmployeeById(this.state.id).then((res) => {
-                let employee = res.data;
-                this.setState({
-                    firstName: employee.firstName,
-                    lastName: employee.lastName,
-                    email: employee.email,
-                    role: employee.role
-                });
-            });
-        }
+        return
     }
 
     saveOrUpdateEmployee = (e) => {
         e.preventDefault();
         //dto
-        let employee = {firstName: this.state.firstName, lastName: this.state.lastName, email: this.state.email, password: this.state.password};
+        let employee = {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            password: this.state.password,
+            role: this.state.role
+        };
         console.log('employee => ' + JSON.stringify(employee));
 
-        // step 5
-        if (this.state.id === '_add') {
             EmployeeService.createEmployee(employee).then(res => {
                 this.props.history.push('/employees');
             });
-        } else {
-            EmployeeService.updateEmployee(employee, this.state.id).then(res => {
-                this.props.history.push('/employees');
-            });
-        }
     }
 
     changeFirstNameHandler = (event) => {
-        this.setState(  {firstName: event.target.value});
+        this.setState({firstName: event.target.value});
     }
 
     changeLastNameHandler = (event) => {
@@ -67,10 +52,11 @@ class CreateEmployeeComponent extends Component {
     }
 
     changeEmailHandler = (event) => {
-        this.setState({emailId: event.target.value});
+        this.setState({email: event.target.value});
     }
     changePasswordHandler = (event) => {
-        this.setState({password: event.target.value});
+        this.setState({
+            password: event.target.value});
     }
 
     cancel() {
@@ -81,7 +67,7 @@ class CreateEmployeeComponent extends Component {
         if (this.state.id === '_add') {
             return <h3 className="text-center">Add Employee</h3>
         } else {
-            return <h3 className="text-center">Update Employee</h3>
+            return <h3 className="text-center">Add Employee</h3>
         }
     }
 
@@ -108,13 +94,13 @@ class CreateEmployeeComponent extends Component {
                                                value={this.state.lastName} onChange={this.changeLastNameHandler}/>
                                     </div>
                                     <div className="form-group">
-                                        <label> Email Id: </label>
+                                        <label> Email: </label>
                                         <input placeholder="Email" name="email" className="form-control"
                                                value={this.state.email} onChange={this.changeEmailHandler}/>
                                     </div>
 
                                     <div className="form-group">
-                                        <label> Password  : </label>
+                                        <label> Password : </label>
                                         <input placeholder="Password" name="password" className="form-control"
                                                value={this.state.password} onChange={this.changePasswordHandler}/>
                                     </div>

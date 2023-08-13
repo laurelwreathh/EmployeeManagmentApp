@@ -11,10 +11,11 @@ class TokenComponent extends Component {
 
         this.register = this.register.bind(this);
         this.authenticate = this.authenticate.bind(this);
-}
+    }
 
     componentDidMount() {
-
+        console.log(sessionStorage.getItem('token'));
+        return;
     }
 
     cancel() {
@@ -35,7 +36,7 @@ class TokenComponent extends Component {
                 <br></br>
                 <div className="card col-md-6 offset-md-3">
                     <h3 className="text-center"> Authentication</h3>
-                    <div className="card-body" >
+                    <div className="card-body">
                         <button className="btn btn-success" onClick={this.register}>Register
                         </button>
 

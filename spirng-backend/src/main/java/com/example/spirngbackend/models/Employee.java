@@ -2,10 +2,7 @@ package com.example.spirngbackend.models;
 
 import com.example.spirngbackend.enums.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "Employee")
@@ -32,13 +29,17 @@ public class Employee {
     private String email;
 
     @Column(name = "password")
+    @NotNull(message = "Password should be not null")
+    @NotBlank(message = "Password should be not empty")
+    @Size(min = 8, message = "Password is too short")
     private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    //TODO: разобраться с конструкторами, а то ниче не понятно ваще
-
+    //TODO: разобраться с конструкторами, а то ниче не понятно ваще (need add lombok)
+    //TODO: сделать валидацию
+    //TODO: сделать экспешены
 
     public Employee(int id, String firstName, String lastName, String email, String password, Role role) {
         this.id = id;

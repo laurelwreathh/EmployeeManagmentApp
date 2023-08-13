@@ -14,7 +14,8 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry
-                        .addMapping("/**"); // Enable CORS to whole app
+                        .addMapping("/**")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE");// Enable CORS to whole app
             }
         };
     }

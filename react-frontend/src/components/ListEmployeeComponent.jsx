@@ -27,14 +27,15 @@ class ListEmployeeComponent extends Component {
         this.props.history.push(`/add-employee/${id}`);
     }
 
+    addEmployee() {
+        this.props.history.push('/add-employee/_add');
+    }
+
     componentDidMount() {
+        console.log(sessionStorage.getItem('token'));
         EmployeeService.getEmployees().then((res) => {
             this.setState({employees: res.data});
         });
-    }
-
-    addEmployee() {
-        this.props.history.push('/add-employee/_add');
     }
 
     render() {
