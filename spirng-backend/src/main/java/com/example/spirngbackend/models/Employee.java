@@ -2,10 +2,23 @@ package com.example.spirngbackend.models;
 
 import com.example.spirngbackend.enums.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.*;
+import org.hibernate.proxy.HibernateProxy;
 
+import java.util.Objects;
+
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "Employee")
+@AllArgsConstructor
+@Builder
+@NoArgsConstructor
 public class Employee {
 
     @Id
@@ -24,6 +37,7 @@ public class Employee {
     @NotBlank(message = "Last Name should be not empty")
     private String lastName;
 
+    @Email(message = "Invalid email")
     @Column(name = "email")
     @Email(message = "Invalid email")
     private String email;
@@ -41,95 +55,4 @@ public class Employee {
     //TODO: сделать валидацию
     //TODO: сделать экспешены
 
-    public Employee(int id, String firstName, String lastName, String email, String password, Role role) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
-
-    public Employee(int id, String firstName, String lastName, String email) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
-
-    public Employee(String firstName, String lastName, String email, String password, Role role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", emailId='" + email + '\'' +'\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
-
-    public Employee() {
-    }
-
-    public Employee(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
 }

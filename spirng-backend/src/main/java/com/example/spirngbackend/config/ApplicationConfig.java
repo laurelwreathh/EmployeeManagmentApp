@@ -3,6 +3,7 @@ package com.example.spirngbackend.config;
 import com.example.spirngbackend.security.EmployeeDetails;
 import com.example.spirngbackend.services.EmployeeService;
 import com.example.spirngbackend.utils.EmployeeNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,13 +19,10 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+@RequiredArgsConstructor
 public class ApplicationConfig {
 
     private final EmployeeService employeeService;
-
-    public ApplicationConfig(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
 
     @Bean
     public UserDetailsService employeeDetailsService() {

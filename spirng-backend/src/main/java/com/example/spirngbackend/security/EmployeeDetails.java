@@ -1,6 +1,7 @@
 package com.example.spirngbackend.security;
 
 import com.example.spirngbackend.models.Employee;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,14 +9,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class EmployeeDetails implements UserDetails {
 
     private final Employee employee;
-
-
-    public EmployeeDetails(Employee employee) {
-        this.employee = employee;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
