@@ -2,15 +2,23 @@ package com.example.spirngbackend.models;
 
 import com.example.spirngbackend.enums.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.proxy.HibernateProxy;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+import java.util.Objects;
+
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "Employee")
+@AllArgsConstructor
+@Builder
+@NoArgsConstructor
 public class Employee {
 
     @Id
@@ -29,6 +37,7 @@ public class Employee {
     @NotBlank(message = "Last Name should be not empty")
     private String lastName;
 
+    @Email(message = "Invalid email")
     @Column(name = "email")
     @Email(message = "Invalid email")
     private String email;
