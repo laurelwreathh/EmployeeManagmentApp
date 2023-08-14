@@ -5,6 +5,7 @@ import com.example.spirngbackend.mappers.EmployeeMapper;
 import com.example.spirngbackend.models.Employee;
 import com.example.spirngbackend.repositories.EmployeeRepository;
 import com.example.spirngbackend.utils.EmployeeNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,17 +14,12 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class EmployeeService {
 
     private final EmployeeRepository repository;
 
     private final EmployeeMapper mapper;
-
-
-    public EmployeeService(EmployeeRepository repository, EmployeeMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
 
     public List<Employee> findAll(){
         return repository.findAll();
