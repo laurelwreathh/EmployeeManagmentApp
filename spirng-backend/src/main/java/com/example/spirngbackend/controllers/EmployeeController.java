@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
+    private final PasswordEncoder encoder;
 
     @GetMapping()
     public List<Employee> findAll(){
@@ -32,8 +34,10 @@ public class EmployeeController {
     }
 
     @PostMapping()
-    public ResponseEntity<Employee> create(@RequestBody @Valid EmployeeDTO employeeDTO){
-        return new ResponseEntity<>(employeeService.save(employeeDTO), HttpStatus.CREATED);
+    public ResponseEntity<HttpStatus> create(@RequestBody @Valid EmployeeDTO employeeDTO){
+        employeeDTO.setPassword(encoder.encode(employeeDTO.getPassword()));
+        employeeService.save(employeeDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
