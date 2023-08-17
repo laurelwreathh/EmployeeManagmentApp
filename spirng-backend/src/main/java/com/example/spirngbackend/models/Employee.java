@@ -48,8 +48,5 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    //TODO: разобраться с конструкторами, а то ниче не понятно ваще (need add lombok)
-    //TODO: сделать валидацию
-    //TODO: сделать экспешены
-
+    //TODO: тесты многа классна больно
 }

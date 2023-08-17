@@ -14,7 +14,6 @@ class TokenComponent extends Component {
     }
 
     componentDidMount() {
-        console.log(sessionStorage.getItem('token'));
         return;
     }
 
