@@ -1,0 +1,22 @@
+application:
+    security:
+        jwt:
+            expiration: 86400000
+            refresh-token:
+                expiration: 604800000
+            secret: 6f184c4a664db6bad79bc405e5221ac834ae7260f88bea272162ad8df1c8f881
+spring:
+    datasource:
+        driver-class-name: org.h2.Driver
+        password: sa
+        url: jdbc:h2://mem:db;DB_CLOSE_DELAY=-1
+        username: sa
+    jpa:
+        database: h2
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        hibernate:
+            ddl-auto: create-drop
+        properties:
+            hibernate:
+                format_sql: false
+        show_sql: false

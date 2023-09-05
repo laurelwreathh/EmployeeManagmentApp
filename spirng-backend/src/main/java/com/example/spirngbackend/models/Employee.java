@@ -49,4 +49,5 @@ public class Employee {
     private Role role;
 
     //TODO: тесты многа классна больно
+    //TODO: есть идея перекинуть логин на отдельный микросервис
 }
