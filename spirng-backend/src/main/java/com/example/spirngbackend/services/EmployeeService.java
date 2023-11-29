@@ -6,7 +6,6 @@ import com.example.spirngbackend.models.Employee;
 import com.example.spirngbackend.repositories.EmployeeRepository;
 import com.example.spirngbackend.utils.EmployeeNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,13 +34,13 @@ public class EmployeeService {
     }
 
     @Transactional
-    public void save(EmployeeDTO employeeDTO){
-        repository.save(mapper.toModel(employeeDTO));
+    public Employee save(EmployeeDTO employeeDTO){
+        return repository.save(mapper.toModel(employeeDTO));
     }
 
     @Transactional
-    public void save(Employee employee){
-        repository.save(employee);
+    public Employee save(Employee employee){
+        return repository.save(employee);
     }
 
     @Transactional
@@ -50,9 +49,9 @@ public class EmployeeService {
     }
 
     @Transactional
-    public void update(Employee employee, int id){
+    public Employee update(Employee employee, int id){
         employee.setId(id);
-        repository.save(employee);
+        return repository.save(employee);
     }
 
 

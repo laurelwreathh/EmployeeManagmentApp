@@ -34,7 +34,6 @@ public class Employee {
     @NotBlank(message = "Last Name should be not empty")
     private String lastName;
 
-    @Email(message = "Invalid email")
     @Column(name = "email")
     @Email(message = "Invalid email")
     private String email;
