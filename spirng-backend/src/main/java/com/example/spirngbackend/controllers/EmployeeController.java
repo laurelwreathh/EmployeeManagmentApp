@@ -34,10 +34,10 @@ public class EmployeeController {
     }
 
     @PostMapping()
-    public ResponseEntity<HttpStatus> create(@RequestBody @Valid EmployeeDTO employeeDTO){
+    public ResponseEntity<EmployeeDTO> create(@RequestBody @Valid EmployeeDTO employeeDTO){
         employeeDTO.setPassword(encoder.encode(employeeDTO.getPassword()));
         employeeService.save(employeeDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(employeeDTO ,HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
