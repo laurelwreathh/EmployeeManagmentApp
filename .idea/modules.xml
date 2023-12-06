@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ReactJS-Spring-Boot-CRUD-Full-Stack-App-master.iml" filepath="$PROJECT_DIR$/.idea/ReactJS-Spring-Boot-CRUD-Full-Stack-App-master.iml" />
-      <module fileurl="file://$PROJECT_DIR$/spirng-backend/spirng-backend.iml" filepath="$PROJECT_DIR$/spirng-backend/spirng-backend.iml" />
     </modules>
   </component>
 </project>

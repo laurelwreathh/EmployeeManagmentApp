@@ -34,8 +34,8 @@ public class EmployeeService {
     }
 
     @Transactional
-    public Employee save(EmployeeDTO employeeDTO){
-        return repository.save(mapper.toModel(employeeDTO));
+    public EmployeeDTO save(EmployeeDTO employeeDTO){
+        return mapper.toDTO(repository.save(mapper.toModel(employeeDTO)));
     }
 
     @Transactional

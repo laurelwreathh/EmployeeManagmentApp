@@ -4,12 +4,14 @@ import com.example.spirngbackend.dtos.EmployeeDTO;
 import com.example.spirngbackend.enums.Role;
 import com.example.spirngbackend.mappers.EmployeeMapper;
 import com.example.spirngbackend.models.Employee;
+import com.example.spirngbackend.repositories.EmployeeRepository;
 import com.example.spirngbackend.services.EmployeeService;
 import com.example.spirngbackend.services.JwtService;
 import com.example.spirngbackend.utils.EmployeeNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -25,6 +27,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -35,8 +38,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.doNothing;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(controllers = EmployeeController.class)
@@ -63,6 +66,9 @@ class EmployeeControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @MockBean
+    private EmployeeRepository employeeRepository;
 
     @BeforeEach
     void setUp() {
@@ -94,8 +100,7 @@ class EmployeeControllerTest {
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.size()", CoreMatchers.is(employeeList.size())))
-                .andDo(MockMvcResultHandlers.print());
+                .andExpect(MockMvcResultMatchers.jsonPath("$.size()", CoreMatchers.is(employeeList.size())));
 
     }
 
@@ -103,38 +108,52 @@ class EmployeeControllerTest {
     void findOneById() throws Exception {
         given(employeeService.findOneById(employee.getId())).willReturn(employee);
 
-        ResultActions response = mockMvc.perform(get("/api/v1/employees")
+        ResultActions response = mockMvc.perform(get("/api/v1/employees/1")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.firstName", CoreMatchers.is(employee.getFirstName())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.lastName", CoreMatchers.is(employee.getLastName())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email", CoreMatchers.is(employee.getEmail())))
-                .andDo(MockMvcResultHandlers.print());
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email", CoreMatchers.is(employee.getEmail())));
     }
 
     @Test
     void create() throws Exception {
-        given(employeeService.save((Employee) ArgumentMatchers.any()))
-                .willAnswer(InvocationOnMock::getArguments);
+        given(employeeService.save(employee)).willReturn(employee);
 
         ResultActions request = mockMvc.perform(post("/api/v1/employees")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(employeeDTO)));
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(employee)));
 
         request.andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName", CoreMatchers.is(employeeDTO.getFirstName())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName", CoreMatchers.is(employeeDTO.getLastName())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email", CoreMatchers.is(employeeDTO.getEmail())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName", CoreMatchers.is(employee.getFirstName())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName", CoreMatchers.is(employee.getLastName())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email", CoreMatchers.is(employee.getEmail())));
+    }
+
+    @Test
+    void update() throws Exception {
+        given(employeeService.update(employee, employee.getId())).willReturn(employee);
+
+        ResultActions request = mockMvc.perform(put("/api/v1/employees/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(employee)));
+
+        request.andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName", CoreMatchers.is(employee.getFirstName())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName", CoreMatchers.is(employee.getLastName())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email", CoreMatchers.is(employee.getEmail())))
                 .andDo(MockMvcResultHandlers.print());
-    }
-
-    @Test
-    void update() {
 
     }
 
     @Test
-    void delete() {
+    void delete() throws Exception{
+        doNothing().when(employeeService).delete(employee.getId());
+
+        ResultActions request = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/employees/1")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        request.andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

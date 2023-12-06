@@ -41,8 +41,11 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable("id") int id, @RequestBody @Valid Employee employee){
+    public ResponseEntity<Employee> update(@PathVariable("id") int id, @RequestBody @Valid Employee employee){
         employeeService.update(employee, id);
+        return new ResponseEntity<>(employee, HttpStatus.OK);
+        // надо сделать ретурн на методах правильный
+        // доднлать тесты проверить апдейт тест сделать делит тест
     }
 
     @DeleteMapping("/{id}")
