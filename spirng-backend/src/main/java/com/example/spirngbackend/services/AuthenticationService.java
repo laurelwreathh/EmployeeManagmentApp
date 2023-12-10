@@ -29,8 +29,6 @@ public class AuthenticationService {
                 jwtRequest.getEmail(),
                 jwtRequest.getPassword()
         ));
-
-
         return new JwtResponse(jwtService.generateToken(
                 new EmployeeDetails(employeeService.findOneByEmail(jwtRequest.getEmail()).orElseThrow())));
     }

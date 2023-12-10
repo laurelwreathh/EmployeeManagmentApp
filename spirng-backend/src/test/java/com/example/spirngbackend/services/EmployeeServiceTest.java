@@ -39,12 +39,12 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-@RunWith(MockitoJUnitRunner.class)
-//@RunWith(Runner.class)
 class EmployeeServiceTest {
 
     @Mock
     private EmployeeRepository employeeRepository;
+
+    private Employee employee;
 
     @Mock
     private EmployeeMapper employeeMapper;
@@ -52,18 +52,20 @@ class EmployeeServiceTest {
     @InjectMocks
     private EmployeeService employeeService;
 
-    @Test
-    void canFindAll() {
-        //given
-        Employee employee = Employee.builder()
+    @BeforeEach
+    void setUp() {
+        employee = Employee.builder()
                 .id(1)
                 .firstName("Alexander")
                 .lastName("Kaplun")
                 .email("test@mail.com")
                 .role(Role.EMPLOYEE)
-                .password("4986532344")
+                .password("49868484854")
                 .build();
+    }
 
+    @Test
+    void canFindAll() {
         List<Employee> list = new ArrayList<>();
         list.add(employee);
 
@@ -78,21 +80,12 @@ class EmployeeServiceTest {
 
     @Test
     void canFindOneById() throws EmployeeNotFoundException {
-        //given
-        int id = 1;
-        Employee employee = Employee.builder()
-                .id(id)
-                .firstName("Alexander")
-                .lastName("Kaplun")
-                .email("test@mail.com")
-                .role(Role.EMPLOYEE)
-                .password("498654")
-                .build();
-        given(employeeRepository.findById(id))
+
+        given(employeeRepository.findById(employee.getId()))
                 .willReturn(Optional.ofNullable(employee));
 
         //when
-        Employee foundedEmployee = employeeService.findOneById(id);
+        Employee foundedEmployee = employeeService.findOneById(employee.getId());
 
         //then
         assertThat(foundedEmployee).isNotNull();
@@ -100,14 +93,6 @@ class EmployeeServiceTest {
 
     @Test
     void canSave() {
-        Employee employee = Employee.builder()
-                .id(1)
-                .firstName("Alexander")
-                .lastName("Kaplun")
-                .email("test@mail.com")
-                .role(Role.EMPLOYEE)
-                .password("498888654")
-                .build();
 
         given(employeeRepository.save(any(Employee.class))).willReturn(employee);
 
@@ -125,15 +110,6 @@ class EmployeeServiceTest {
     @Test
     void canUpdate() {
         //given
-        Employee employee = Employee.builder()
-                .id(1)
-                .firstName("Alexander")
-                .lastName("Kaplun")
-                .email("test@mail.com")
-                .role(Role.EMPLOYEE)
-                .password("49868484854")
-                .build();
-
         given(employeeRepository.save(any(Employee.class))).willReturn(employee);
 
 

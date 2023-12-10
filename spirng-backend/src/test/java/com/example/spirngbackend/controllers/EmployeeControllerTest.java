@@ -49,8 +49,6 @@ class EmployeeControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private EmployeeDTO employeeDTO;
-
     private Employee employee;
 
     private List<Employee> employeeList;
@@ -72,14 +70,6 @@ class EmployeeControllerTest {
 
     @BeforeEach
     void setUp() {
-        employeeDTO = EmployeeDTO
-                .builder()
-                .firstName("Test")
-                .lastName("testLast")
-                .email("example@email.com")
-                .password("asdfasdfasdfadsf")
-                .role(Role.EMPLOYEE).build();
-
         employee = Employee
                 .builder()
                 .id(1)
